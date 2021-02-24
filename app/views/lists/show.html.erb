@@ -1,0 +1,12 @@
+<div class="container">
+  <h1> <%= @list.name %> </h1>
+</div>
+
+<% @list.bookmarks.each do |bookmark| %>
+    <div class="col-4">
+       <h2><%= bookmark.comment %>
+      <%= link_to 'delete', bookmark_path, method: 'delete' %></h2>
+    <% end %>
+
+  <%= link_to 'add bookmark', new_list_bookmark_path(@list) %>
+  <%= link_to "back", lists_path %>
