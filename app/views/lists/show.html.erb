@@ -4,10 +4,10 @@
 
 <% @list.bookmarks.each do |bookmark| %>
 <div class="container">
-  <ul class="row">
+  <ul class="row d-flex align-items-center">
     <%= bookmark.movie.title %>
     <%= bookmark.comment %>
-    <%= link_to 'delete', bookmark_path, method: 'delete' %>
+    <%= link_to 'delete', bookmark_path, method: 'delete', :class => "btn btn-danger m-3" %>
   </div>
   <% end %>
 </ul>
@@ -24,10 +24,24 @@
 
   <h2>New Review</h2>
   <%= simple_form_for [@list, @review] do |f| %>
-    <%= f.input :rating, collection: [0, 1, 2, 3, 4, 5] %>
+    <fieldset class="rating">
+
+<legend>Please rate:</legend>
+
+<%=f.radio_button :rating, 5, :id => "star5" %><label for="star5" title="Excellent!">5 Stars</label>
+
+<%=f.radio_button :rating, 4, :id => "star4" %> <label for="star5" title="Good!">4 Stars</label>
+
+<%=f.radio_button :rating, 3, :id => "star3" %> <label for="star3" title="Average!">5 Stars</label>
+
+<%=f.radio_button :rating, 2, :id => "star2" %> <label for="star5" title="Poor!">2 Stars</label>
+
+<%=f.radio_button :rating, 1, :id => "star1" %> <label for="star1" title="Very Poor!">1 Stars</label>
+
+</fieldset>
     <%= f.input :comment %>
     <%= f.submit %>
   <% end %>
+<%= link_to "back", lists_path, :class => "btn btn-primary m-3" %>
 </div>
 
-<%= link_to "back", lists_path %>

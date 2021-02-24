@@ -1,11 +1,17 @@
-<h1>Lists</h1>
-<div class="container">
-  <% @lists.each do |list| %>
-  <%= link_to list do %>
-  <%= list.name %>
-  <% end %>
-  <% end %>
+<div class="container d-flex justify-content-center align-items-center">
+  <h1>Lists:</h1>
+    <% @lists.each do |list| %>
+    <div class="container">
+      <div class="container row">
+      <%= link_to list do %>
+      <%= list.name %>
+      <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+<br>
+<div class="btn btn-success ml-3">
+  <%= link_to "New List", new_list_path %>
 </div>
-
-
-<%= link_to "New List", new_list_path %>
