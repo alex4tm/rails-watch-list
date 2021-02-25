@@ -13,6 +13,9 @@
 @import "pages/index";
 @import 'select2/dist/css/select2';
 
+.fa-star {
+  color: #F4A540;
+}
 
 .rating {
 
@@ -25,16 +28,11 @@ float:left;
 /* This will replaces text button with star image  */
 
 
-
-    .rating:not(:checked) > input {
-
-position:absolute;
-
- top:-9999px;
-
- clip:rect(0,0,0,0);
-
- }
+.rating:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+  clip:rect(0,0,0,0);
+}
 
 
 
@@ -62,7 +60,11 @@ color:#ddd;
 
  }
 
+#five {
 
+ content: '★ ';
+
+}
 
 
 

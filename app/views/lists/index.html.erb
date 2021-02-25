@@ -1,17 +1,20 @@
 <div class="container d-flex justify-content-center align-items-center">
   <h1>Lists:</h1>
-    <% @lists.each do |list| %>
-    <div class="container">
-      <div class="container row">
+  <% @lists.each do |list| %>
+  <div class="container">
+    <div class="product-card">
       <%= link_to list do %>
-      <%= list.name %>
-      <% end %>
+      <div class="card-category"
+           style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path @list.photo.key %>)">
+        <%= list.name %>
       </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
+  <% end %>
+</div>
 
 <br>
-<div class="btn btn-success ml-3">
-  <%= link_to "New List", new_list_path %>
+<div class="btn btn-success rounded ml-3">
+  <%= link_to "Create new list", new_list_path %>
 </div>

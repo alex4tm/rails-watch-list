@@ -1,47 +1,77 @@
-<div class="container">
-  <h1> <%= @list.name %> </h1>
-</div>
 
-<% @list.bookmarks.each do |bookmark| %>
-<div class="container">
-  <ul class="row d-flex align-items-center">
-    <%= bookmark.movie.title %>
-    <%= bookmark.comment %>
-    <%= link_to 'delete', bookmark_path, method: 'delete', :class => "btn btn-danger m-3" %>
+<div class="banner">
+    <h1> <%= @list.name %> </h1>
   </div>
+  <% if @list.photo.attached? %>
+  <%= image_tag @list.photo, width: 400, height: 300, crop: :fill %>
+  <% else %>
+  <p>NO PHOTO</p>
   <% end %>
-</ul>
+</div>
 
 <div class="container">
-<h2>New Bookmark</h2>
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :comment %>
-    <%= f.association :movie, input_html: { class: 'select2' } %>
-    <%= f.submit %>
-  <% end %>
-  <br>
-  <br>
+  <div class="row align-items-center">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col-4 card rounded p-2 m-2">
+        <%= bookmark.movie.title %>
+        <%= bookmark.comment %>
+        <%= link_to 'delete', bookmark_path(bookmark), method: 'delete', :class => "btn btn-danger m-3" %>
+      </div>
+    <% end %>
+  </div>
 
-  <h2>New Review</h2>
-  <%= simple_form_for [@list, @review] do |f| %>
-    <fieldset class="rating">
 
-<legend>Please rate:</legend>
+  <div class="card">
+    <h2>New Bookmark</h2>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :comment %>
+      <%= f.association :movie, input_html: { class: 'select2' } %>
+      <%= f.button :submit , class: "btn btn-primary m3 rounded"  %>
+    <% end %>
+  </div>
 
-<%=f.radio_button :rating, 5, :id => "star5" %><label for="star5" title="Excellent!">5 Stars</label>
+  <div class="d-flex justify-content-between">
+    <div class="w-50">
+      <h2>Reviews:</h2>
+      <% @reviews.each do |review| %>
+          <h4> Comment: <%=review.comment %> </h4>
 
-<%=f.radio_button :rating, 4, :id => "star4" %> <label for="star5" title="Good!">4 Stars</label>
+          Rating: <% review.rating.times do %>
+            <i class="fas fa-star"></i>
+          <% end %>
 
-<%=f.radio_button :rating, 3, :id => "star3" %> <label for="star3" title="Average!">5 Stars</label>
 
-<%=f.radio_button :rating, 2, :id => "star2" %> <label for="star5" title="Poor!">2 Stars</label>
+      <% end %>
+    </div>
 
-<%=f.radio_button :rating, 1, :id => "star1" %> <label for="star1" title="Very Poor!">1 Stars</label>
+    <div class="card w-50">
+      <h2>New Review</h2>
+      <%= simple_form_for [@list, @review] do |f| %>
+        <fieldset class="rating">
 
-</fieldset>
-    <%= f.input :comment %>
-    <%= f.submit %>
-  <% end %>
-<%= link_to "back", lists_path, :class => "btn btn-primary m-3" %>
+          <legend>Please rate:</legend>
+
+          <%=f.radio_button :rating, 5, :id => "star5" %><label for="star5" title="Excellent!">5 Stars</label>
+          <%=f.radio_button :rating, 4, :id => "star4" %> <label for="star5" title="Good!">4 Stars</label>
+
+          <%=f.radio_button :rating, 3, :id => "star3" %> <label for="star3" title="Average!">5 Stars</label>
+
+          <%=f.radio_button :rating, 2, :id => "star2" %> <label for="star5" title="Poor!">2 Stars</label>
+
+          <%=f.radio_button :rating, 1, :id => "star1" %> <label for="star1" title="Very Poor!">1 Stars</label>
+
+        </fieldset>
+        <%= f.input :comment %>
+        <%= f.button :submit , class: "btn btn-primary m3 rounded"  %>
+      <% end %>
+    </div>
+
+  </div>
 </div>
+
+
+
+
+<%= link_to "back", lists_path, :class => "btn btn-warning m-3" %>
+
 
